@@ -1,2 +1,43 @@
 @import '@/variables';
 @import '@/template';
+
+.page {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 940px);
+  background-color: $backgroundDark;
+  .form {
+    grid-area: 1/2/2/3;
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    background-color: $backgroundLight;
+    .title__box {
+      @include flex(row, space-between, center);
+    }
+    .title {
+      @extend %titleFont;
+      color: $colorTextDark;
+    }
+  }
+  .close {
+    position: relative;
+    min-width: 14px;
+    min-height: 14px;
+    cursor: pointer;
+    .cross_line {
+      position: absolute;
+      width: 19.8px;
+      height: 1.6px;
+      background-color: $colorCross;
+      top: 9.8px;
+      left: 0;
+      opacity: 1;
+      transform: rotate(45deg);
+    }
+    .another_line {
+      transform: rotate(135deg);
+      left: 0;
+    }
+  }
+}
