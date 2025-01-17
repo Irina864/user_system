@@ -14,7 +14,10 @@ export default function AddUser() {
             ></div>
           </div>
         </div>
-        <Form addForm={true} />
+        <div className={styles.form__items}>
+          {' '}
+          <Form addForm={true} />
+        </div>
       </div>
     </div>
   );

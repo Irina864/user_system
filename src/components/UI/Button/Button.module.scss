@@ -1,0 +1,20 @@
+@import '@/variables';
+@import '@/template';
+
+.button {
+  padding: 12px 94.5px;
+  max-width: 260px;
+  width: 100%;
+  background-color: $backgroundItemsLight;
+  border: none;
+  border-radius: 16px;
+  @extend %textFont;
+  color: $colorTextDark;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btnDark {
+  background-color: $backgroundItemsColor;
+
+  color: $colorTextLight;
+}

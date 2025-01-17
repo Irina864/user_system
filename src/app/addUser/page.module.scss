@@ -13,11 +13,16 @@
     height: 100%;
     background-color: $backgroundLight;
     .title__box {
+      margin-bottom: 30px;
       @include flex(row, space-between, center);
     }
     .title {
       @extend %titleFont;
       color: $colorTextDark;
+    }
+    .form__items {
+      height: 93%;
+      width: 100%;
     }
   }
   .close {
@@ -29,7 +34,7 @@
       position: absolute;
       width: 19.8px;
       height: 1.6px;
-      background-color: $colorCross;
+      background-color: $colorUiElements;
       top: 9.8px;
       left: 0;
       opacity: 1;
