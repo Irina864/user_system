@@ -20,8 +20,7 @@ export default function Select({
   errorText,
   errorImgSrc,
   addUser,
-  isSearch,
-  sex,
+  onBlur,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [displayedValue, setDisplayedValue] = useState(value || '');
@@ -58,11 +57,16 @@ export default function Select({
   const handleSelectClick = () => {
     setIsOpen(!isOpen);
   };
+  const inputRef = useRef(null);
+  const handleClick = (e) => {
+    e.stopPropagation();
+    inputRef.current?.showPicker();
+  };
   return (
     <div className={styles.select__wrapper} ref={selectWrapperRef} id={id}>
       <div
-        className={`${styles.select} `}
-        onClick={Boolean(array) && handleSelectClick}
+        className={`${styles.select} ${error && styles.error}`}
+        onClick={(e) => (isCalendar ? handleClick(e) : handleSelectClick())}
       >
         {imgSrc && (
           <img
@@ -71,20 +75,35 @@ export default function Select({
             alt="icon"
           />
         )}
-        <div className={styles.valueBox}>
-          {displayedValue !== '' && <div className={styles.label}>{label}</div>}
+        <div
+          className={`${styles.valueBox} ${
+            isCalendar && !Boolean(value) && styles.calendar
+          }`}
+        >
+          {Boolean(value) && <div className={styles.label}>{label}</div>}
           <input
+            ref={inputRef}
             type={type}
             name={inputName}
             placeholder={placeholder}
             className={`${styles.input} ${styles.value} ${
               errorText && styles.error
-            }`}
+            } `}
             value={displayedValue}
             onChange={handleChangeInput}
+            onBlur={onBlur}
           />
+          {isCalendar && !Boolean(value) && (
+            <div
+              className={`${styles.placeholder} ${
+                styles.placeholder_calendar
+              } ${errorText && styles.error} `}
+            >
+              {placeholder}
+            </div>
+          )}
         </div>
-        <div lassName={styles.icon_wrap}>
+        <div className={styles.icon_wrap}>
           <div
             className={
               isOpen

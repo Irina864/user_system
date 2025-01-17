@@ -3,6 +3,8 @@
 
 .box {
   padding: 2px;
+  width: 100%;
+  max-width: 286.67px;
   display: flex;
   @include flex(row, flex-start, center);
   gap: 2px;

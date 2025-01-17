@@ -19,6 +19,7 @@
   }
   .valueBox {
     width: 100%;
+    position: relative;
   }
   .select__arrow {
     margin: 6px;
@@ -62,6 +63,10 @@
       @extend .placeholder;
     }
   }
+  .placeholder_calendar {
+    position: absolute;
+    top: 0px;
+  }
   .error {
     color: $colorTextError;
     background-color: $backgroundError;
@@ -69,6 +74,28 @@
     &::placeholder {
       color: $colorTextError;
     }
+  }
+  .calendar {
+    appearance: 'none';
+    border: 'none';
+    background: 'transparent';
+
+    input[type='date']::-webkit-datetime-edit {
+      display: none;
+    }
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='date']::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type='date'] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+  }
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
   }
 }
 .menu__wrap {

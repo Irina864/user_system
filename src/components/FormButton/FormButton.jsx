@@ -8,8 +8,13 @@ export default function FormButton({
 }) {
   return (
     <div className={styles.box}>
-      <Button btnName={btnNameFirst} onClick={onClickFirst} btnDark={true} />
-      <Button isLink={'/'} btnName={btnNameSecond} />
+      <Button
+        btnName={btnNameFirst}
+        onClick={onClickFirst}
+        btnDark={true}
+        type="submit"
+      />
+      <Button linkHref={'/'} btnName={btnNameSecond} />
     </div>
   );
 }

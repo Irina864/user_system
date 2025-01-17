@@ -9,6 +9,7 @@ export default function Button({
   btnError,
   btnErrorDark,
   linkHref,
+  type,
 }) {
   return linkHref ? (
     <Link
@@ -19,7 +20,7 @@ export default function Button({
       ${btnDark && styles.btnDark}
       ${btnErrorDark && styles.btnErrorDark}}`}
     >
-      {btnImgSrc ? <img src={btnImgSrc} alt={btnName} /> : { btnName }}
+      {btnImgSrc ? <img src={btnImgSrc} alt={btnName} /> : btnName}
     </Link>
   ) : (
     <button
@@ -28,6 +29,7 @@ export default function Button({
       ${btnError && styles.btnError}
       ${btnDark && styles.btnDark}
       ${btnErrorDark && styles.btnErrorDark}}`}
+      type={type}
     >
       {btnName}
     </button>
