@@ -1,0 +1,6 @@
+@import '@/variables';
+@import '@/template';
+.box {
+  @include flex(row, flex-start, center);
+  gap: 10px;
+}

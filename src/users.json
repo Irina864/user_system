@@ -1,0 +1,52 @@
+[
+  {
+    "id": 9686,
+    "email": "ivanov@mail.com",
+    "first_name": "Иван",
+    "last_name": "Иванов",
+    "avatar": "",
+    "birth_date": "1985-05-15",
+    "sex": "MALE",
+    "job": "Доктор"
+  },
+  {
+    "id": 76867,
+    "email": "petrova@mail.com",
+    "first_name": "Мария",
+    "last_name": "Петрова",
+    "avatar": "",
+    "birth_date": "1990-03-22",
+    "sex": "FEMALE",
+    "job": "Медсестра"
+  },
+  {
+    "id": 876876,
+    "email": "sidorov@mail.com",
+    "first_name": "Алексей",
+    "last_name": "Петрусенко",
+    "avatar": "",
+    "birth_date": "1978-11-30",
+    "sex": "MALE",
+    "job": "Админ"
+  },
+  {
+    "id": 867676,
+    "email": "kuznetsova@mail.com",
+    "first_name": "Анна",
+    "last_name": "Семцова",
+    "avatar": "",
+    "birth_date": "1992-07-19",
+    "sex": "FEMALE",
+    "job": "Доктор"
+  },
+  {
+    "id": 876678,
+    "email": "semenov@mail.com",
+    "first_name": "Сергей",
+    "last_name": "Семенов",
+    "avatar": "",
+    "birth_date": "1980-12-05",
+    "sex": "MALE",
+    "job": "Медсестра"
+  }
+]

@@ -1,0 +1,44 @@
+@import '@/variables';
+@import '@/template';
+
+.overlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  max-width: 1920px;
+  height: 100vh;
+  @include flex(row, center, center);
+  background-color: $bgOverlay;
+}
+.modal {
+  width: 100%;
+  max-width: 383px;
+  height: 290px;
+  padding: 30px;
+  @include flex(column, space-between, center);
+  gap: 10px;
+  border-radius: 20px;
+  opacity: 0px;
+  background-color: $backgroundLight;
+  .modal__img {
+    width: 80px;
+    height: 100px;
+  }
+  .modal__textbox {
+    @include flex(column, center, center);
+    gap: 4px;
+    .modal__text {
+      @extend %textFont;
+      color: $colorTextDark;
+    }
+    .modal__userName {
+      @extend %subtitleFont;
+      color: $colorTextDark;
+    }
+  }
+  .modal__btnWrap {
+    margin-top: 20px;
+    @include flex(row, center, center);
+    gap: 10px;
+  }
+}

@@ -1,0 +1,168 @@
+@import '@/variables';
+@import '@/template';
+
+.select__wrapper {
+  position: relative;
+  width: 100%;
+  .select {
+    width: 100%;
+    padding: 7px 14px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    @include flex(row, flex-start, center);
+    gap: 10px;
+    background-color: $backgroundItemsLight;
+    border-radius: 16px;
+    cursor: pointer;
+  }
+  .valueBox {
+    width: 100%;
+    position: relative;
+  }
+  .select__arrow {
+    margin: 6px;
+    content: '';
+    right: 23px;
+    top: 39%;
+    width: 6.5px;
+    height: 6.5px;
+    border: solid $colorUiElements;
+    border-width: 0 1px 1px 0;
+    transform: rotate(135deg) scaleY(-1);
+    pointer-events: none;
+    transition: transform 0.3s ease;
+  }
+  .open {
+    transform: translateY(75%) rotate(225deg);
+  }
+  .placeholder,
+  .placeholderSearch {
+    @extend %textFont;
+    color: $colorTextPlaceholder;
+  }
+
+  .placeholderSearch {
+    color: $colorTextSearch;
+  }
+  .label {
+    @extend %labelFont;
+    color: $colorTextPlaceholder;
+  }
+  .value {
+    @extend %textFont;
+    color: $colorTextDark;
+  }
+  .input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    &::placeholder {
+      @extend .placeholder;
+    }
+  }
+  .placeholder_calendar {
+    position: absolute;
+    top: 0px;
+  }
+  .error {
+    color: $colorTextError;
+    background-color: $backgroundError;
+
+    &::placeholder {
+      color: $colorTextError;
+    }
+  }
+  .calendar {
+    appearance: 'none';
+    border: 'none';
+    background: 'transparent';
+
+    input[type='date']::-webkit-datetime-edit {
+      display: none;
+    }
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='date']::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type='date'] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+  }
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+.menu__wrap {
+  position: absolute;
+  width: 100%;
+  max-height: 146px;
+  top: 54px;
+  left: 0px;
+  background-color: $backgroundLight;
+  border: none;
+  border-radius: 16px;
+  z-index: 1000;
+  border: 0.6px solid $colorBorderLight;
+  box-shadow: 0px 10px 20px 0px #42474d26;
+  .menu {
+    width: 100%;
+    max-height: 102px;
+    display: flex;
+    @include flex(column, flex-start, flex-start);
+    border-radius: 16px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+
+  .option {
+    width: 100%;
+    padding: 8px 14px;
+    @extend %textFont;
+    color: $colorTextPlaceholder;
+    background-color: $backgroundLight;
+    cursor: pointer;
+  }
+  .option_even {
+    background-color: $backgroundItemsLight;
+  }
+  .addUser {
+    padding: 13px 14px;
+    width: 100%;
+    min-height: 44px;
+    @include flex(row, flex-start, flex-start);
+    gap: 10px;
+
+    border: 0.6px solid $colorBorderLight;
+    border-top: none;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    @extend %textFont;
+    color: $colorTextLight;
+    text-decoration: none;
+    background-color: $backgroundItemsColor;
+  }
+  .addUser_banner {
+    padding: 13px 14px;
+    width: 100%;
+    min-height: 44px;
+    @extend %textFont;
+    color: $colorTextDark;
+    text-decoration: none;
+
+    background-color: $backgroundLight;
+    .addUser__text {
+      font-weight: 700;
+    }
+  }
+  .addUser_menu {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

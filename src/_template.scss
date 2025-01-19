@@ -1,0 +1,56 @@
+@import '@/_variables';
+
+@mixin flex($fd, $jc, $ai) {
+  display: flex;
+  flex-direction: $fd;
+  justify-content: $jc;
+  align-items: $ai;
+}
+
+@mixin _screenMobile {
+  @media screen and (max-width: 320px) {
+    @content;
+  }
+}
+
+%titleFont {
+  font-family: $font;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 31.2px;
+  text-align: left;
+}
+
+%subtitleFont {
+  font-family: $font;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+}
+
+%textFont {
+  font-family: $font;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
+%subtitleFont {
+  font-family: $font;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+}
+
+%labelFont {
+  font-family: $font;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 9.75px;
+  text-align: left;
+}

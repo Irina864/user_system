@@ -1,0 +1,28 @@
+@import '@/variables';
+@import '@/template';
+
+.filter {
+  padding: 24px 10px 14px 10px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 10.87% 7.61% 7.61% 7.61% 4.02%;
+  gap: 20px;
+  .filter__item,
+  .text {
+    @include flex(row, flex-start, flex-start);
+    gap: 6px;
+    @extend %textFont;
+    font-weight: 600;
+    .sorter {
+      @include flex(row, flex-start, flex-start);
+      gap: 6px;
+      font-weight: 400;
+    }
+  }
+  .hover_item {
+    cursor: pointer;
+    &:hover {
+      color: $colorTextHover;
+    }
+  }
+}

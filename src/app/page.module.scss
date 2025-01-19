@@ -1,0 +1,71 @@
+@import '@/variables';
+@import '@/template';
+
+.page {
+  padding: 20px 30px;
+  width: 100%;
+  height: 100vh;
+  @include flex(column, flex-start, flex-start);
+  gap: 20px;
+  background-color: $backgroundItemsLight;
+  .header {
+    width: 100%;
+    @include flex(row, space-between, center);
+    .title {
+      @extend %titleFont;
+      font-weight: 500;
+    }
+    .title__span {
+      font-weight: 300;
+    }
+    .headerBtn {
+      padding: 9px 24px;
+      min-height: 44px;
+      @include flex(row, flex-start, center);
+      gap: 10px;
+      border-radius: 16px;
+      background-color: $colorBtnAdd;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover,
+      &:active {
+        background-color: $colorBtnAddIcon;
+      }
+    }
+    .headerBtn__text {
+      @extend %textFont;
+      color: $colorTextLight;
+      text-decoration: none;
+    }
+    .headerBtn__ellipse {
+      position: relative;
+      min-width: 24px;
+      min-height: 24px;
+      @include flex(row, center, center);
+      border-radius: 50%;
+      background-color: $colorBtnAddIcon;
+    }
+  }
+  .main {
+    width: 100%;
+    @include flex(column, flex-start, flex-start);
+    gap: 20px;
+    .search {
+      padding: 10px;
+      border-radius: 20px;
+      background-color: $backgroundLight;
+      width: 100%;
+      @include flex(column, flex-start, flex-start);
+    }
+    .users {
+      max-height: calc(100vh - 222px);
+      width: 100%;
+      @include flex(column, flex-start, flex-start);
+      overflow-y: auto;
+    }
+    .loading {
+      width: 100%;
+      min-height: 250px;
+    }
+  }
+}

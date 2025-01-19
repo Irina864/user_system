@@ -1,0 +1,70 @@
+@import '@/variables';
+@import '@/template';
+
+.button {
+  padding: 12px 94.5px;
+  max-width: 260px;
+  width: 100%;
+  background-color: $backgroundItemsLight;
+  border: none;
+  border-radius: 16px;
+  @extend %textFont;
+  color: $colorTextDark;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover,
+  &:active {
+    background-color: $backgroundItemsLightHover;
+  }
+}
+.btnDark {
+  background-color: $backgroundItemsColor;
+  color: $colorTextLight;
+  &:hover,
+  &:active {
+    background-color: $backgroundItemsColorHover;
+  }
+}
+.btnImgSrc {
+  padding: 0;
+  width: 34px;
+  height: 34px;
+  @include flex(row, center, center);
+  border-radius: 6px;
+  background-color: $backgroundLight;
+  &:hover,
+  &:active {
+    background-color: $backgroundLightHover;
+  }
+}
+.btnDelete,
+.btnDeleteDark {
+  max-width: 156.5px;
+  min-width: 156.5px;
+  padding: 13px 47.5px;
+  border-radius: 16px;
+  @extend %textFont;
+  color: $colorTextError;
+  background-color: $colorBgBtnModalDelete;
+  &:hover,
+  &:active {
+    background-color: $colorBgBtnModalDeleteHover;
+  }
+}
+.btnDeleteDark {
+  color: $colorTextLight;
+  background-color: $colorBgBtnModalDeleteDark;
+  &:hover,
+  &:active {
+    background-color: $colorBgBtnModalDeleteDarkHover;
+  }
+}
+.btnGrey {
+  font-weight: 600;
+  color: $colorTextDark;
+  background-color: $backgroundItemsLight;
+  &:hover,
+  &:active {
+    background-color: $backgroundItemsLightHover;
+  }
+}
