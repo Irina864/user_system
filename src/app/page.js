@@ -9,7 +9,6 @@ import imgAdd from '@/app/images/plus.svg';
 import Filter from '@/components/UI/Filter/Filter';
 import UserItem from '@/components/UI/UserItem/UserItem';
 import usersJson from '@/users.json';
-
 import {
   getUserList,
   updateCommonUserList,
@@ -45,6 +44,10 @@ export default function Home() {
   useEffect(() => {
     dispatch(getUserList());
   }, []);
+
+  useEffect(() => {
+    setUsers(usersInfo.commonUserList);
+  }, [usersInfo.commonUserList]);
 
   useEffect(() => {
     const localUsers = useLocalStorageRead('users', []);
@@ -105,9 +108,6 @@ export default function Home() {
     });
   }, [formData.last_name]);
 
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
   return (
     <>
       <div className={styles.page}>

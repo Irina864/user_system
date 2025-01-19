@@ -10,7 +10,7 @@ export default function Filter({ onClickName, onClickDate, onClickSex }) {
       <div className={styles.filter__item}>
         <div className={styles.text}>ФИО пользователя</div>
         <div
-          className={styles.sorter}
+          className={`${styles.sorter} ${styles.hover_item}`}
           onClick={() => {
             setReverse(!reverse);
             onClickName();
@@ -21,10 +21,16 @@ export default function Filter({ onClickName, onClickDate, onClickSex }) {
         </div>
       </div>
       <div className={styles.filter__item}>Контактные данные</div>
-      <div className={styles.filter__item} onClick={onClickDate}>
+      <div
+        className={`${styles.filter__item} ${styles.hover_item}`}
+        onClick={onClickDate}
+      >
         Дата рождения
       </div>
-      <div className={styles.filter__item} onClick={onClickSex}>
+      <div
+        className={`${styles.filter__item} ${styles.hover_item}`}
+        onClick={onClickSex}
+      >
         Пол
       </div>
       <div className={styles.filter__item}>Роль</div>

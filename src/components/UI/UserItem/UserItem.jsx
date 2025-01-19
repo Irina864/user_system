@@ -1,3 +1,4 @@
+'use client';
 import styles from './UserItem.module.scss';
 import imgUserItem from '@/app/images/add_user.svg';
 import imgWoman from '@/app/images/woman_dark.svg';
@@ -5,8 +6,12 @@ import imgMan from '@/app/images/man_dark.svg';
 import imgDelete from '@/app/images/delete.svg';
 import imgEdit from '@/app/images/edit.svg';
 import Button from '../Button/Button';
+import { useDispatch } from 'react-redux';
+import { toggleDeleteModal } from '@/store/openModalSlice';
+import { updateUserKey } from '@/store/usersSlice';
 
 export default function UserItem({ user }) {
+  const dispatch = useDispatch();
   return (
     <div className={styles.UserItem}>
       <div className={styles.UserItem__item}>
@@ -17,7 +22,6 @@ export default function UserItem({ user }) {
             alt="user"
           />
         </div>
-
         <div className={styles.text}>
           {user.last_name} {user.first_name}
         </div>
@@ -36,8 +40,28 @@ export default function UserItem({ user }) {
       </div>
       <div className={styles.UserItem__item}>{user.job}</div>
       <div className={styles.btnWrap}>
-        <Button linkHref={'/editUser'} btnImgSrc={imgEdit.src} />
-        <Button btnImgSrc={imgDelete.src} />
+        <Button
+          linkHref={'/editUser'}
+          btnImgSrc={imgEdit.src}
+          onClick={() => {
+            dispatch(updateUserKey({ key: 'idToEdit', data: user.id }));
+          }}
+        />
+        <Button
+          btnImgSrc={imgDelete.src}
+          onClick={() => {
+            dispatch(toggleDeleteModal());
+            dispatch(
+              updateUserKey({
+                key: 'userToDelete',
+                data: {
+                  id: user.id,
+                  user: `${user.last_name} ${user.first_name}`,
+                },
+              })
+            );
+          }}
+        />
       </div>
     </div>
   );

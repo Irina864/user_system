@@ -17,7 +17,12 @@
       @include flex(row, flex-start, flex-start);
       gap: 6px;
       font-weight: 400;
-      cursor: pointer;
+    }
+  }
+  .hover_item {
+    cursor: pointer;
+    &:hover {
+      color: $colorTextHover;
     }
   }
 }

@@ -121,7 +121,7 @@ export const deleteUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(errorObject);
       }
 
-      console.log('User was deleted');
+      console.log('User was deleted', response.status);
       return;
     } catch (error) {
       console.error('Get data error:', error);
@@ -143,10 +143,16 @@ const usersSlice = createSlice({
     },
     usersList: [],
     commonUserList: [],
+    userToDelete: '',
+    idToEdit: {},
     fetchError: false,
     isLoading: false,
   },
   reducers: {
+    updateUserKey: (state, action) => {
+      const { key, data } = action.payload;
+      state[`${key}`] = data;
+    },
     updateUser: (state, action) => {
       if (state !== undefined) {
         state.user = action.payload;
@@ -227,7 +233,11 @@ const usersSlice = createSlice({
   },
 });
 
-export const { updateUser, updateUserList, updateCommonUserList } =
-  usersSlice.actions;
+export const {
+  updateUser,
+  updateUserList,
+  updateCommonUserList,
+  updateUserKey,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;
