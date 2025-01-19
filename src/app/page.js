@@ -1,3 +1,4 @@
+'use client';
 import imgSearch from '@/app/images/search.svg';
 import styles from './page.module.scss';
 import Link from 'next/link';
@@ -61,39 +62,45 @@ export default function Home() {
     },
   ];
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>
-          Пользователи клиники{' '}
-          <span className={styles.title__span}>{nums} человек(а)</span>
-        </h1>
-        <Link href={'/'} className={styles.headerBtn}>
-          <div className={styles.headerBtn__ellipse}>
-            <img src={imgAdd.src} alt="add" className={styles.headerBtn__img} />
-          </div>
-          <p className={styles.headerBtn__text}>Добавить нового участника</p>
-        </Link>
-      </header>
-      <main className={styles.main}>
-        <section className={styles.search}>
-          <Select
-            isSearch={true}
-            addUser={true}
-            type={'text'}
-            imgSrc={imgSearch.src}
-            placeholder={'Поиск...'}
-            inputName="user_name"
-            array={users}
-            // value={formData.user_name}
-          />
-          <Filter />
-        </section>
-        <section className={styles.users}>
-          {users.map((user) => (
-            <UserItem key={user.id} user={user} />
-          ))}
-        </section>
-      </main>
-    </div>
+    <>
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>
+            Пользователи клиники{' '}
+            <span className={styles.title__span}>{nums} человек(а)</span>
+          </h1>
+          <Link href={'/'} className={styles.headerBtn}>
+            <div className={styles.headerBtn__ellipse}>
+              <img
+                src={imgAdd.src}
+                alt="add"
+                className={styles.headerBtn__img}
+              />
+            </div>
+            <p className={styles.headerBtn__text}>Добавить нового участника</p>
+          </Link>
+        </header>
+        <main className={styles.main}>
+          <section className={styles.search}>
+            <Select
+              isSearch={true}
+              addUser={true}
+              type={'text'}
+              imgSrc={imgSearch.src}
+              placeholder={'Поиск...'}
+              inputName="user_name"
+              array={users}
+              // value={formData.user_name}
+            />
+            <Filter />
+          </section>
+          <section className={styles.users}>
+            {users.map((user) => (
+              <UserItem key={user.id} user={user} />
+            ))}
+          </section>
+        </main>
+      </div>
+    </>
   );
 }

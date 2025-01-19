@@ -1,0 +1,39 @@
+@import '@/variables';
+@import '@/template';
+
+.overlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  max-width: 1920px;
+  height: 100vh;
+  @include flex(row, center, center);
+  background-color: $bgOverlay;
+}
+.modal {
+  width: 100%;
+  max-width: 575px;
+  height: 338px;
+  padding: 30px;
+  @include flex(column, space-between, center);
+
+  border-radius: 20px;
+  opacity: 0px;
+  background-color: $backgroundLight;
+  .modal__img {
+    width: 273.44px;
+    height: 160px;
+  }
+  .modal__textbox {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    @include flex(column, center, center);
+    gap: 4px;
+    @extend %subtitleFont;
+    color: $colorTextDark;
+  }
+  .modal__btnWrap {
+    @include flex(row, center, center);
+    gap: 10px;
+  }
+}

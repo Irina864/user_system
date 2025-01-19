@@ -9,7 +9,10 @@ export default function Button({
   btnError,
   btnErrorDark,
   linkHref,
+  btnDelete,
+  btnDeleteDark,
   type,
+  btnGrey,
 }) {
   return linkHref ? (
     <Link
@@ -19,6 +22,9 @@ export default function Button({
       ${btnError && styles.btnError}
       ${btnDark && styles.btnDark}
       ${btnImgSrc && styles.btnImgSrc}
+      ${btnDelete && styles.btnDelete}
+      ${btnDeleteDark && styles.btnDeleteDark}
+      ${btnGrey && styles.btnGrey}
       ${btnErrorDark && styles.btnErrorDark}}`}
     >
       {btnImgSrc ? <img src={btnImgSrc} alt={btnName} /> : btnName}
@@ -30,6 +36,9 @@ export default function Button({
       ${btnError && styles.btnError}
       ${btnDark && styles.btnDark}
       ${btnImgSrc && styles.btnImgSrc}
+      ${btnDelete && styles.btnDelete}
+      ${btnDeleteDark && styles.btnDeleteDark}
+      ${btnGrey && styles.btnGrey}
       ${btnErrorDark && styles.btnErrorDark}}`}
       type={type}
     >

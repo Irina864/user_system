@@ -26,3 +26,22 @@
   border-radius: 6px;
   background-color: $backgroundLight;
 }
+.btnDelete,
+.btnDeleteDark {
+  max-width: 156.5px;
+  min-width: 156.5px;
+  padding: 13px 47.5px;
+  border-radius: 16px;
+  @extend %textFont;
+  color: $colorTextError;
+  background-color: $colorBgBtnModalDelete;
+}
+.btnDeleteDark {
+  color: $colorTextLight;
+  background-color: $colorBgBtnModalDeleteDark;
+}
+.btnGrey {
+  font-weight: 600;
+  color: $colorTextDark;
+  background-color: $backgroundItemsLight;
+}
