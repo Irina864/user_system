@@ -17,10 +17,11 @@ import {
 
 export default function DeleteModal({}) {
   const userToDelete = useSelector((state) => state.user.userToDelete);
+  const fetchError = useSelector((state) => state.user.fetchError);
   const dispatch = useDispatch();
 
   const deleteLocalUser = (idUser) => {
-    const localUsers = useLocalStorageRead('users', []);
+    const localUsers = useLocalStorageRead('users');
     const newUsers = localUsers.filter((user) => user.id !== idUser);
     dispatch(updateCommonUserList(newUsers));
     useLocalStorageRemove('users');
@@ -49,6 +50,9 @@ export default function DeleteModal({}) {
               dispatch(deleteUser(userToDelete.id));
               dispatch(toggleDeleteModal());
               dispatch(updateUserKey({ key: 'userToDelete', data: {} }));
+              if (!fetchError) {
+                dispatch(toddleSaveModal());
+              }
             }}
           />
           <Button

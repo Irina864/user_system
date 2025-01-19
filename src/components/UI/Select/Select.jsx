@@ -24,7 +24,6 @@ export default function Select({
   onBlur,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [displayedValue, setDisplayedValue] = useState(value || '');
   const selectWrapperRef = useRef(null);
 
   useEffect(() => {
@@ -43,15 +42,12 @@ export default function Select({
   }, [selectWrapperRef]);
 
   const handleChange = (selectedItem, index) => {
-    console.log(selectedItem);
     setIsOpen(false);
-    setDisplayedValue(selectedItem);
     onChange(selectedItem);
   };
 
   const handleChangeInput = (e) => {
     setIsOpen(true);
-    setDisplayedValue(e.target.value);
     onChange(e.target.value);
   };
 
@@ -90,7 +86,7 @@ export default function Select({
             className={`${styles.input} ${styles.value} ${
               errorText && styles.error
             } `}
-            value={displayedValue}
+            value={value}
             onChange={handleChangeInput}
             onBlur={onBlur}
           />

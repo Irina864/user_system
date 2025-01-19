@@ -127,6 +127,7 @@
     @extend %textFont;
     color: $colorTextPlaceholder;
     background-color: $backgroundLight;
+    cursor: pointer;
   }
   .option_even {
     background-color: $backgroundItemsLight;

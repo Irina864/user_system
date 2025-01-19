@@ -69,6 +69,7 @@ export const postUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(errorObject);
       }
       const users = await response.json();
+      console.log('User was posted', response.status);
       return users.data;
     } catch (error) {
       console.error('Get data error:', error);
@@ -95,6 +96,7 @@ export const patchUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(errorObject);
       }
       const users = await response.json();
+      console.log('User was patched', response.status);
       return users.data;
     } catch (error) {
       console.error('Get data error:', error);

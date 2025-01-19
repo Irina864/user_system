@@ -16,6 +16,7 @@ export default function SaveModal({}) {
           <Button
             btnName={'Закрыть'}
             btnGrey={true}
+            linkHref="/"
             onClick={() => dispatch(toggleSaveModal())}
           />
         </div>

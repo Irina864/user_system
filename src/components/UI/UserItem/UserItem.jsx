@@ -8,7 +8,7 @@ import imgEdit from '@/app/images/edit.svg';
 import Button from '../Button/Button';
 import { useDispatch } from 'react-redux';
 import { toggleDeleteModal } from '@/store/openModalSlice';
-import { updateUserKey } from '@/store/usersSlice';
+import { getUserDetailById, updateUserKey } from '@/store/usersSlice';
 
 export default function UserItem({ user }) {
   const dispatch = useDispatch();
@@ -23,7 +23,8 @@ export default function UserItem({ user }) {
           />
         </div>
         <div className={styles.text}>
-          {user.last_name} {user.first_name}
+          <div>{user.last_name}</div>
+          <div>{user.first_name}</div>
         </div>
       </div>
       <div className={styles.UserItem__item}>{user.email}</div>
@@ -45,6 +46,7 @@ export default function UserItem({ user }) {
           btnImgSrc={imgEdit.src}
           onClick={() => {
             dispatch(updateUserKey({ key: 'idToEdit', data: user.id }));
+            dispatch(getUserDetailById(user.id));
           }}
         />
         <Button

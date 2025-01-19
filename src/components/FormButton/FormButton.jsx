@@ -9,6 +9,7 @@ export default function FormButton({
   return (
     <div className={styles.box}>
       <Button
+        linkHref={'/'}
         btnName={btnNameFirst}
         onClick={onClickFirst}
         btnDark={true}

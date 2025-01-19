@@ -55,12 +55,12 @@ export default function Home() {
       if (!usersInfo.isLoading && Boolean(usersInfo.usersList)) {
         if (usersInfo.usersList.length > 0) {
           const backUsers = usersInfo.usersList.map((item) => {
-            const random = Math.floor(Math.random() * 10);
+            const random = Math.floor(Math.random() * 9) + 1;
             const randomDate = `199${random}-0${random}-1${random}`;
             const jobs = ['Доктор', 'Админ'];
             const sexs = ['FEMALE', 'MALE'];
             const randomJob = jobs[Math.floor(Math.random() * jobs.length)];
-            const randomSex = jobs[Math.floor(Math.random() * sexs.length)];
+            const randomSex = sexs[Math.floor(Math.random() * sexs.length)];
             return {
               ...item,
               birth_date: randomDate,
@@ -69,6 +69,7 @@ export default function Home() {
             };
           });
           const commonUsers = [...new Set([...usersJson, ...backUsers])];
+
           setUsersLastNames(() => {
             return commonUsers.map((user) => {
               return user.last_name;
@@ -95,17 +96,19 @@ export default function Home() {
   }, [dispatch]);
 
   useEffect(() => {
-    const commonUsersLastNames = users.map((user) => {
-      return user.last_name;
-    });
-    setUsersLastNames(() => {
-      return commonUsersLastNames.filter((user) =>
-        user
-          .split(' ')[0]
-          .toLowerCase()
-          .includes(formData.last_name.split(' ')[0].toLowerCase())
-      );
-    });
+    if (formData.last_name.length > 0) {
+      const commonUsersLastNames = users.map((user) => {
+        return user.last_name;
+      });
+      setUsersLastNames(() => {
+        return commonUsersLastNames.filter((user) =>
+          user
+            .split(' ')[0]
+            .toLowerCase()
+            .includes(formData.last_name.split(' ')[0].toLowerCase())
+        );
+      });
+    }
   }, [formData.last_name]);
 
   return (
@@ -118,7 +121,7 @@ export default function Home() {
               {users.length} человек(а)
             </span>
           </h1>
-          <Link href={'/'} className={styles.headerBtn}>
+          <Link href={'/addUser'} className={styles.headerBtn}>
             <div className={styles.headerBtn__ellipse}>
               <img
                 src={imgAdd.src}

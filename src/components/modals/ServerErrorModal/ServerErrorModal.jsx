@@ -4,6 +4,7 @@ import Button from '@/components/UI/Button/Button';
 import styles from './ServerErrorModal.module.scss';
 import modalImgServerError from '@/app/images/server_error_modal.svg';
 import { toggleServerErrorModal } from '@/store/openModalSlice';
+import { updateUserKey } from '@/store/usersSlice';
 
 export default function ServerErrorModal({}) {
   const dispatch = useDispatch();
@@ -21,7 +22,10 @@ export default function ServerErrorModal({}) {
             btnName={'Закрыть'}
             btnDark={true}
             linkHref={'/'}
-            onClick={() => dispatch(toggleServerErrorModal())}
+            onClick={() => {
+              dispatch(updateUserKey({ key: 'fetchError', data: false }));
+              dispatch(toggleServerErrorModal());
+            }}
           />
         </div>
       </div>

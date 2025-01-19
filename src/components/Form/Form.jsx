@@ -13,25 +13,54 @@ import {
   postUser,
   patchUser,
   updateUser,
+  updateCommonUserList,
 } from '@/store/usersSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import {
+  useLocalStorageAdd,
+  useLocalStorageRead,
+  useLocalStorageRemove,
+} from '@/hooks/useLocalStorage';
+import { toggleSaveModal } from '@/store/openModalSlice';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Form({ addForm, editForm }) {
   const dispatch = useDispatch();
   const store = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
-    id: '',
+    id: uuidv4(),
     user_name: '',
     birth_date: '',
     sex: 'FEMALE',
     job: '',
+    avatar: '',
+    email: 'example@mail.ru',
   });
   const [error, setError] = useState({
     user_name: false,
     birth_date: false,
     job: false,
   });
+
+  useEffect(() => {
+    if (Boolean(store.idToEdit) && editForm) {
+      const localUsers = useLocalStorageRead('users');
+      const editedUserArr = localUsers.filter(
+        (user) => user.id === store.idToEdit
+      );
+      const editedUser = editedUserArr[0];
+      setFormData({
+        id: editedUser.id,
+        user_name: `${editedUser.last_name} ${editedUser.first_name}`,
+        birth_date: editedUser.birth_date,
+        sex: editedUser.sex,
+        job: editedUser.job,
+        avatar: editedUser.avatar,
+        email: editedUser.email,
+      });
+    }
+  }, [store.idToEdit]);
 
   useEffect(() => {
     if (Boolean(formData.user_name)) {
@@ -55,33 +84,6 @@ export default function Form({ addForm, editForm }) {
       }
     }
   }, [formData.user_name]);
-
-  useEffect(() => {
-    if (Boolean(store.user.id) && editForm) {
-      setFormData((prev) => ({
-        ...prev,
-        id: store.user.id,
-      }));
-      if (Boolean(store.user.last_name)) {
-        setFormData((prev) => ({
-          ...prev,
-          user_name: `${store.user.last_name} ${store.user.first_name}`,
-        }));
-      }
-      if (Boolean(store.user.birth_date)) {
-        setFormData((prev) => ({
-          ...prev,
-          user_name: store.user.birth_date,
-        }));
-      }
-      if (Boolean(store.user.job)) {
-        setFormData((prev) => ({
-          ...prev,
-          user_name: store.user.job,
-        }));
-      }
-    }
-  }, [store.user.id]);
 
   const [jobArray, setJobArray] = useState(['Доктор', 'Админ', 'Медсестра']);
   useEffect(() => {
@@ -123,9 +125,6 @@ export default function Form({ addForm, editForm }) {
     return isValid;
   };
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
   return (
     <form className={styles.form}>
       <div className={styles.form__wrap}>
@@ -228,49 +227,54 @@ export default function Form({ addForm, editForm }) {
           e.preventDefault();
           const isValid = validateForm();
           if (isValid) {
+            const localUsers = useLocalStorageRead('users');
             const nameParts = formData.user_name.split(' ');
+            const sendData = {
+              first_name: nameParts[1],
+              last_name: nameParts[0],
+              birth_date: formData.birth_date,
+              sex: formData.sex,
+              job: formData.job,
+              avatar: formData.avatar,
+              email: formData.email,
+            };
             if (addForm) {
-              dispatch(
-                postUser({
+              const newUsers = [
+                ...localUsers,
+                {
+                  id: formData.id,
                   first_name: nameParts[1],
                   last_name: nameParts[0],
                   birth_date: formData.birth_date,
                   sex: formData.sex,
                   job: formData.job,
-                })
-              );
-              dispatch(
-                updateUser({
-                  first_name: nameParts[1],
-                  last_name: nameParts[0],
-                  birth_date: formData.birth_date,
-                  sex: formData.sex,
-                  job: formData.job,
-                })
-              );
+                  avatar: formData.avatar,
+                  email: formData.email,
+                },
+              ];
+              dispatch(updateCommonUserList(newUsers));
+              useLocalStorageRemove('users');
+              useLocalStorageAdd('users', newUsers);
+              dispatch(postUser(sendData));
+              dispatch(updateUser(sendData));
             } else {
+              const removeUser = localUsers.filter(
+                (user) => user.id !== store.idToEdit
+              );
+              const newUsers = [...removeUser, sendData];
+              dispatch(updateCommonUserList(newUsers));
+              useLocalStorageRemove('users');
+              useLocalStorageAdd('users', newUsers);
               dispatch(
                 patchUser({
-                  data: {
-                    id: formData.id,
-                    first_name: nameParts[1],
-                    last_name: nameParts[0],
-                    birth_date: formData.birth_date,
-                    sex: formData.sex,
-                    job: formData.job,
-                  },
+                  data: sendData,
                   id: formData.id,
                 })
               );
-              dispatch(
-                updateUser({
-                  first_name: nameParts[1],
-                  last_name: nameParts[0],
-                  birth_date: formData.birth_date,
-                  sex: formData.sex,
-                  job: formData.job,
-                })
-              );
+              dispatch(updateUser(sendData));
+            }
+            if (!store.fetchError) {
+              dispatch(toggleSaveModal());
             }
           }
         }}
