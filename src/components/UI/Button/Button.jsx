@@ -18,6 +18,7 @@ export default function Button({
       className={`${styles.button} 
       ${btnError && styles.btnError}
       ${btnDark && styles.btnDark}
+      ${btnImgSrc && styles.btnImgSrc}
       ${btnErrorDark && styles.btnErrorDark}}`}
     >
       {btnImgSrc ? <img src={btnImgSrc} alt={btnName} /> : btnName}
@@ -28,10 +29,11 @@ export default function Button({
       className={`${styles.button} 
       ${btnError && styles.btnError}
       ${btnDark && styles.btnDark}
+      ${btnImgSrc && styles.btnImgSrc}
       ${btnErrorDark && styles.btnErrorDark}}`}
       type={type}
     >
-      {btnName}
+      {btnImgSrc ? <img src={btnImgSrc} alt={btnName} /> : btnName}
     </button>
   );
 }

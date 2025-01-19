@@ -18,3 +18,11 @@
 
   color: $colorTextLight;
 }
+.btnImgSrc {
+  padding: 0;
+  width: 34px;
+  height: 34px;
+  @include flex(row, center, center);
+  border-radius: 6px;
+  background-color: $backgroundLight;
+}

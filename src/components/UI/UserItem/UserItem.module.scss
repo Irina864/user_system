@@ -1,0 +1,37 @@
+@import '@/variables';
+@import '@/template';
+
+.UserItem {
+  padding: 14px 10px 14px 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 55.98% 10.87% 7.61% 7.61% 12.72%;
+  gap: 20px;
+  border-bottom: 1px solid $colorBorderUser;
+  .UserItem__item,
+  .text {
+    @include flex(row, flex-start, center);
+    gap: 6px;
+    @extend %textFont;
+    font-weight: 500;
+  }
+  .imgWrap {
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 16px;
+    @include flex(row, center, center);
+    background-color: $backgroundItemsColor;
+  }
+
+  .UserItem__wrap {
+    @include flex(row, space-between, center);
+    @extend %textFont;
+    font-weight: 500;
+  }
+  .btnWrap {
+    max-width: 74px;
+
+    @include flex(row, flex-start, center);
+    gap: 6px;
+  }
+}

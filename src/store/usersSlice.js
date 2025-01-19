@@ -162,6 +162,11 @@ const usersSlice = createSlice({
         state.user = action.payload;
       }
     },
+    updateUserList: (state, action) => {
+      if (state !== undefined) {
+        state.usersList = action.payload;
+      }
+    },
   },
   extraReducers: (builder) => {
     //!get
@@ -217,6 +222,6 @@ const usersSlice = createSlice({
   },
 });
 
-export const { updateUser } = usersSlice.actions;
+export const { updateUser, updateUserList } = usersSlice.actions;
 
 export default usersSlice.reducer;

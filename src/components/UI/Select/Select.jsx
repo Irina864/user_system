@@ -14,6 +14,7 @@ export default function Select({
   array,
   value,
   onChange,
+  isSearch,
   isCalendar,
   imgSrc,
   error,
@@ -103,15 +104,17 @@ export default function Select({
             </div>
           )}
         </div>
-        <div className={styles.icon_wrap}>
-          <div
-            className={
-              isOpen
-                ? `${styles.select__arrow} ${styles.open}`
-                : `${styles.select__arrow}`
-            }
-          ></div>
-        </div>{' '}
+        {addUser && !isSearch && (
+          <div className={styles.icon_wrap}>
+            <div
+              className={
+                isOpen
+                  ? `${styles.select__arrow} ${styles.open}`
+                  : `${styles.select__arrow}`
+              }
+            ></div>
+          </div>
+        )}{' '}
         {error && <img src={imgError.src} alt="error" />}
       </div>
       {isOpen && !isCalendar ? (
