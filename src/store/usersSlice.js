@@ -10,17 +10,13 @@ export const getUserDetailById = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      console.log('Response status:', response.status);
-
       if (!response.ok) {
         const errorText = await response.text();
         const errorObject = JSON.parse(errorText);
         console.log('Error response:', errorObject);
         return thunkAPI.rejectWithValue(errorObject);
       }
-
       const user = await response.json();
-      console.log(user);
       return user.data;
     } catch (error) {
       console.error('Get data error:', error);
@@ -38,7 +34,6 @@ export const getUserList = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      console.log('Response status:', response.status);
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -48,7 +43,6 @@ export const getUserList = createAsyncThunk(
       }
 
       const users = await response.json();
-      console.log(users);
       return users.data;
     } catch (error) {
       console.error('Get data error:', error);
@@ -68,7 +62,6 @@ export const postUser = createAsyncThunk(
         body: JSON.stringify(data),
       });
 
-      console.log('Response status:', response.status);
       if (!response.ok) {
         const errorText = await response.text();
         const errorObject = JSON.parse(errorText);
@@ -76,7 +69,6 @@ export const postUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(errorObject);
       }
       const users = await response.json();
-      console.log(users);
       return users.data;
     } catch (error) {
       console.error('Get data error:', error);
@@ -96,8 +88,6 @@ export const patchUser = createAsyncThunk(
         },
         body: JSON.stringify(data),
       });
-
-      console.log('Response status:', response.status);
       if (!response.ok) {
         const errorText = await response.text();
         const errorObject = JSON.parse(errorText);
@@ -105,7 +95,6 @@ export const patchUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(errorObject);
       }
       const users = await response.json();
-      console.log(users);
       return users.data;
     } catch (error) {
       console.error('Get data error:', error);
@@ -124,7 +113,6 @@ export const deleteUser = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      console.log('Response status:', response.status);
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -133,7 +121,7 @@ export const deleteUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(errorObject);
       }
 
-      console.log('deleteUser was deleted');
+      console.log('User was deleted');
       return;
     } catch (error) {
       console.error('Get data error:', error);
@@ -154,6 +142,8 @@ const usersSlice = createSlice({
       sex: 'FEMALE',
     },
     usersList: [],
+    commonUserList: [],
+    fetchError: false,
     isLoading: false,
   },
   reducers: {
@@ -167,6 +157,11 @@ const usersSlice = createSlice({
         state.usersList = action.payload;
       }
     },
+    updateCommonUserList: (state, action) => {
+      if (state !== undefined) {
+        state.commonUserList = action.payload;
+      }
+    },
   },
   extraReducers: (builder) => {
     //!get
@@ -174,54 +169,65 @@ const usersSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getUserDetailById.fulfilled, (state, action) => {
+      state.fetchError = false;
       state.user = action.payload;
       state.isLoading = false;
     });
     builder.addCase(getUserDetailById.rejected, (state, action) => {
       state.isLoading = false;
       console.log('Fail to get user data');
+      state.fetchError = true;
     });
     builder.addCase(getUserList.pending, (state, action) => {
       state.isLoading = true;
     });
     builder.addCase(getUserList.fulfilled, (state, action) => {
+      state.fetchError = false;
       state.usersList = action.payload;
       state.isLoading = false;
     });
     builder.addCase(getUserList.rejected, (state, action) => {
       state.isLoading = false;
       console.log('Fail to get user data');
+      state.fetchError = true;
     });
     //! post
     builder.addCase(postUser.fulfilled, (state, action) => {
+      state.fetchError = false;
       state.user = action.payload;
       state.isLoading = false;
     });
     builder.addCase(postUser.rejected, (state, action) => {
       console.log('Fetch error to postuser', action.payload);
+      state.fetchError = true;
     });
     //!patch
     builder.addCase(patchUser.fulfilled, (state, action) => {
+      state.fetchError = false;
       state.user = action.payload;
       state.isLoading = false;
     });
     builder.addCase(patchUser.rejected, (state, action) => {
       console.log('Fetch error to patchUser', action.payload);
+      state.fetchError = true;
     });
     //!delete
     builder.addCase(deleteUser.pending, (state, action) => {
       state.isLoading = true;
     });
     builder.addCase(deleteUser.fulfilled, (state, action) => {
+      state.fetchError = false;
       state.isLoading = false;
     });
     builder.addCase(deleteUser.rejected, (state, action) => {
       state.isLoading = false;
+      state.fetchError = true;
       console.log('Fail to deleteUser');
     });
   },
 });
 
-export const { updateUser, updateUserList } = usersSlice.actions;
+export const { updateUser, updateUserList, updateCommonUserList } =
+  usersSlice.actions;
 
 export default usersSlice.reducer;

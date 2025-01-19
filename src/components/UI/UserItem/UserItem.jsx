@@ -12,7 +12,8 @@ export default function UserItem({ user }) {
       <div className={styles.UserItem__item}>
         <div className={styles.imgWrap}>
           <img
-            src={user.avatar ? imgUserItem.src : imgUserItem.src}
+            className={styles.img}
+            src={user.avatar ? user.avatar : imgUserItem.src}
             alt="user"
           />
         </div>
@@ -33,12 +34,10 @@ export default function UserItem({ user }) {
           {user.sex === 'FEMALE' ? 'Женский' : 'Мужской'}
         </span>
       </div>
-      <div className={styles.UserItem__wrap}>
-        <div className={styles.UserItem__item}>{user.job}</div>
-        <div className={styles.btnWrap}>
-          <Button linkHref={'/editUser'} btnImgSrc={imgEdit.src} />
-          <Button btnImgSrc={imgDelete.src} />
-        </div>
+      <div className={styles.UserItem__item}>{user.job}</div>
+      <div className={styles.btnWrap}>
+        <Button linkHref={'/editUser'} btnImgSrc={imgEdit.src} />
+        <Button btnImgSrc={imgDelete.src} />
       </div>
     </div>
   );

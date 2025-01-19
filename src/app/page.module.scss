@@ -27,6 +27,10 @@
       background-color: $colorBtnAdd;
       text-decoration: none;
       cursor: pointer;
+      &:hover,
+      &:active {
+        background-color: $colorBtnAddIcon;
+      }
     }
     .headerBtn__text {
       @extend %textFont;
@@ -46,7 +50,6 @@
     width: 100%;
     @include flex(column, flex-start, flex-start);
     gap: 20px;
-
     .search {
       padding: 10px;
       border-radius: 20px;
@@ -55,9 +58,14 @@
       @include flex(column, flex-start, flex-start);
     }
     .users {
+      max-height: calc(100vh - 222px);
       width: 100%;
       @include flex(column, flex-start, flex-start);
       overflow-y: auto;
+    }
+    .loading {
+      width: 100%;
+      min-height: 250px;
     }
   }
 }

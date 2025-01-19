@@ -3,15 +3,12 @@
 
 .box {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   @include flex(row, center, center);
-  background-color: $colorBackgroundForm;
-  padding: 48px 40px;
-  border-radius: 10px;
 }
 .loader {
-  color: $colorCircleActive;
+  color: $backgroundItemsColor;
   font-size: 45px;
   text-indent: -9999em;
   overflow: hidden;

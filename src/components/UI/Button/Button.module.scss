@@ -12,11 +12,18 @@
   color: $colorTextDark;
   text-decoration: none;
   cursor: pointer;
+  &:hover,
+  &:active {
+    background-color: $backgroundItemsLightHover;
+  }
 }
 .btnDark {
   background-color: $backgroundItemsColor;
-
   color: $colorTextLight;
+  &:hover,
+  &:active {
+    background-color: $backgroundItemsColorHover;
+  }
 }
 .btnImgSrc {
   padding: 0;
@@ -25,6 +32,10 @@
   @include flex(row, center, center);
   border-radius: 6px;
   background-color: $backgroundLight;
+  &:hover,
+  &:active {
+    background-color: $backgroundLightHover;
+  }
 }
 .btnDelete,
 .btnDeleteDark {
@@ -35,13 +46,25 @@
   @extend %textFont;
   color: $colorTextError;
   background-color: $colorBgBtnModalDelete;
+  &:hover,
+  &:active {
+    background-color: $colorBgBtnModalDeleteHover;
+  }
 }
 .btnDeleteDark {
   color: $colorTextLight;
   background-color: $colorBgBtnModalDeleteDark;
+  &:hover,
+  &:active {
+    background-color: $colorBgBtnModalDeleteDarkHover;
+  }
 }
 .btnGrey {
   font-weight: 600;
   color: $colorTextDark;
   background-color: $backgroundItemsLight;
+  &:hover,
+  &:active {
+    background-color: $backgroundItemsLightHover;
+  }
 }

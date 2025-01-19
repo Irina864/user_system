@@ -1,4 +1,6 @@
 'use client';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleServerErrorModal } from '@/store/openModalSlice';
 import imgSearch from '@/app/images/search.svg';
 import styles from './page.module.scss';
 import Link from 'next/link';
@@ -6,68 +8,115 @@ import Select from '@/components/UI/Select/Select';
 import imgAdd from '@/app/images/plus.svg';
 import Filter from '@/components/UI/Filter/Filter';
 import UserItem from '@/components/UI/UserItem/UserItem';
+import usersJson from '@/users.json';
+
+import {
+  getUserList,
+  updateCommonUserList,
+  updateUserList,
+} from '@/store/usersSlice';
+import { useEffect, useState } from 'react';
+import {
+  useLocalStorageAdd,
+  useLocalStorageRead,
+} from '@/hooks/useLocalStorage';
+import LoadingSpinner from '@/components/UI/LoadingSpinner/LoadingSpinner';
 
 export default function Home() {
-  const nums = 123;
-  const users = [
-    {
-      id: 1,
-      email: 'ivanov@mail.com',
-      first_name: 'Иван',
-      last_name: 'Иванов',
-      avatar: 'https://example.com/ivanov.jpg',
-      birth_date: '1985-05-15',
-      sex: 'MALE',
-      job: 'Доктор',
-    },
-    {
-      id: 2,
-      email: 'petrova@mail.com',
-      first_name: 'Мария',
-      last_name: 'Петрова',
-      avatar: 'https://example.com/petrova.jpg',
-      birth_date: '1990-03-22',
-      sex: 'FEMALE',
-      job: 'Медсестра',
-    },
-    {
-      id: 3,
-      email: 'sidorov@mail.com',
-      first_name: 'Алексей',
-      last_name: 'Сидоров',
-      avatar: 'https://example.com/sidorov.jpg',
-      birth_date: '1978-11-30',
-      sex: 'MALE',
-      job: 'Админ',
-    },
-    {
-      id: 4,
-      email: 'kuznetsova@mail.com',
-      first_name: 'Анна',
-      last_name: 'Кузнецова',
-      avatar: 'https://example.com/kuznetsova.jpg',
-      birth_date: '1992-07-19',
-      sex: 'FEMALE',
-      job: 'Доктор',
-    },
-    {
-      id: 5,
-      email: 'semenov@mail.com',
-      first_name: 'Сергей',
-      last_name: 'Семенов',
-      avatar: 'https://example.com/semenov.jpg',
-      birth_date: '1980-12-05',
-      sex: 'MALE',
-      job: 'Медсестра',
-    },
-  ];
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const usersInfo = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(toggleServerErrorModal());
+  }, [usersInfo.fetchError]);
+  const [users, setUsers] = useState(usersInfo.commonUserList || []);
+  const [usersLastNames, setUsersLastNames] = useState([]);
+  const [formData, setFormData] = useState({ last_name: '' });
+  const [reverse, setReverse] = useState({
+    last_name: false,
+    date: false,
+    sex: false,
+  });
+
+  const byField = (fieldName) => {
+    return (a, b) => (a[fieldName] > b[fieldName] ? 1 : -1);
+  };
+
+  useEffect(() => {
+    dispatch(getUserList());
+  }, []);
+
+  useEffect(() => {
+    const localUsers = useLocalStorageRead('users', []);
+    if (localUsers === undefined || localUsers.length === 0) {
+      if (!usersInfo.isLoading && Boolean(usersInfo.usersList)) {
+        if (usersInfo.usersList.length > 0) {
+          const backUsers = usersInfo.usersList.map((item) => {
+            const random = Math.floor(Math.random() * 10);
+            const randomDate = `199${random}-0${random}-1${random}`;
+            const jobs = ['Доктор', 'Админ'];
+            const sexs = ['FEMALE', 'MALE'];
+            const randomJob = jobs[Math.floor(Math.random() * jobs.length)];
+            const randomSex = jobs[Math.floor(Math.random() * sexs.length)];
+            return {
+              ...item,
+              birth_date: randomDate,
+              job: randomJob,
+              sex: randomSex,
+            };
+          });
+          const commonUsers = [...new Set([...usersJson, ...backUsers])];
+          setUsersLastNames(() => {
+            return commonUsers.map((user) => {
+              return user.last_name;
+            });
+          });
+          setUsers(commonUsers);
+          useLocalStorageAdd('users', users);
+          setLoading(false);
+        }
+      }
+    }
+  }, [usersInfo.usersList]);
+
+  useEffect(() => {
+    const localUsers = useLocalStorageRead('users', []);
+    if (localUsers !== undefined) {
+      if (localUsers.length > 0) {
+        dispatch(updateUserList(localUsers));
+        dispatch(updateCommonUserList(localUsers));
+        setLoading(false);
+        setUsers(localUsers);
+      }
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    const commonUsersLastNames = users.map((user) => {
+      return user.last_name;
+    });
+    setUsersLastNames(() => {
+      return commonUsersLastNames.filter((user) =>
+        user
+          .split(' ')[0]
+          .toLowerCase()
+          .includes(formData.last_name.split(' ')[0].toLowerCase())
+      );
+    });
+  }, [formData.last_name]);
+
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
   return (
     <>
       <div className={styles.page}>
         <header className={styles.header}>
           <h1 className={styles.title}>
             Пользователи клиники{' '}
-            <span className={styles.title__span}>{nums} человек(а)</span>
+            <span className={styles.title__span}>
+              {users.length} человек(а)
+            </span>
           </h1>
           <Link href={'/'} className={styles.headerBtn}>
             <div className={styles.headerBtn__ellipse}>
@@ -88,17 +137,69 @@ export default function Home() {
               type={'text'}
               imgSrc={imgSearch.src}
               placeholder={'Поиск...'}
-              inputName="user_name"
-              array={users}
-              // value={formData.user_name}
+              inputName="last_name"
+              array={usersLastNames}
+              value={formData.last_name}
+              onChange={(item) => {
+                setFormData({ last_name: item });
+              }}
             />
-            <Filter />
+            <Filter
+              onClickName={() => {
+                if (reverse.last_name) {
+                  const data = [...users].sort(byField('last_name')).reverse();
+                  setUsers(data);
+                } else {
+                  const data = [...users].sort(byField('last_name')).sort();
+                  setUsers(data);
+                }
+                setReverse({
+                  last_name: !reverse.last_name,
+                  date: false,
+                  sex: false,
+                });
+              }}
+              onClickDate={() => {
+                if (reverse.date) {
+                  const data = [...users].sort(byField('birth_date')).reverse();
+                  setUsers(data);
+                } else {
+                  const data = [...users].sort(byField('birth_date'));
+                  setUsers(data);
+                }
+                setReverse({
+                  date: !reverse.date,
+                  last_name: false,
+                  sex: false,
+                });
+              }}
+              onClickSex={() => {
+                if (reverse.sex) {
+                  const data = [...users].sort(byField('sex')).reverse();
+                  setUsers(data);
+                } else {
+                  const data = [...users].sort(byField('sex'));
+                  setUsers(data);
+                }
+                setReverse({
+                  last_name: false,
+                  date: false,
+                  sex: !reverse.sex,
+                });
+              }}
+            />
           </section>
-          <section className={styles.users}>
-            {users.map((user) => (
-              <UserItem key={user.id} user={user} />
-            ))}
-          </section>
+          {loading ? (
+            <section className={styles.loading}>
+              <LoadingSpinner />
+            </section>
+          ) : (
+            <section className={styles.users}>
+              {users.map((user) => (
+                <UserItem key={user.id} user={user} />
+              ))}
+            </section>
+          )}
         </main>
       </div>
     </>

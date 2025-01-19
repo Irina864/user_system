@@ -2,10 +2,10 @@
 @import '@/template';
 
 .UserItem {
-  padding: 14px 10px 14px 20px;
+  padding: 14px 20px;
   width: 100%;
   display: grid;
-  grid-template-columns: 55.98% 10.87% 7.61% 7.61% 12.72%;
+  grid-template-columns: 1fr 10.87% 7.61% 7.61% 7.61% 4.02%;
   gap: 20px;
   border-bottom: 1px solid $colorBorderUser;
   .UserItem__item,
@@ -16,11 +16,18 @@
     font-weight: 500;
   }
   .imgWrap {
-    min-width: 44px;
-    min-height: 44px;
+    width: 44px;
+    height: 44px;
     border-radius: 16px;
     @include flex(row, center, center);
     background-color: $backgroundItemsColor;
+    .img {
+      max-width: 100%;
+      border-radius: 16px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
   }
 
   .UserItem__wrap {
@@ -29,8 +36,7 @@
     font-weight: 500;
   }
   .btnWrap {
-    max-width: 74px;
-
+    width: 74px;
     @include flex(row, flex-start, center);
     gap: 6px;
   }

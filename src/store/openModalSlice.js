@@ -5,7 +5,7 @@ export const openModalSlice = createSlice({
   initialState: {
     deleteModal: false,
     saveModal: false,
-    serverErrorModal: true,
+    serverErrorModal: false,
   },
   reducers: {
     toggleDeleteModal: (state, action) => {

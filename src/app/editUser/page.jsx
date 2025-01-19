@@ -1,7 +1,14 @@
+'use client';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleServerErrorModal } from '@/store/openModalSlice';
 import Form from '@/components/Form/Form';
 import styles from './page.module.scss';
 
 export default function EditForm() {
+  const usersInfo = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(toggleServerErrorModal());
+  }, [usersInfo.fetchError]);
   return (
     <div className={styles.page}>
       <div className={styles.form}>
