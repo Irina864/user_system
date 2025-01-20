@@ -1,7 +1,6 @@
 # User system
 
-Deployment
-user-system-qsj0o7793-irina864s-projects.vercel.app
+Deployment (https://user-system-79qzp89p4-irina864s-projects.vercel.app/)
 
 Ссылки:
 
