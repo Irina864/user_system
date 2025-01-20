@@ -9,6 +9,7 @@
   height: 100vh;
   @include flex(row, center, center);
   background-color: $bgOverlay;
+  z-index: 5;
 }
 .modal {
   width: 100%;
@@ -16,10 +17,10 @@
   height: 338px;
   padding: 30px;
   @include flex(column, space-between, center);
-
   border-radius: 20px;
   opacity: 0px;
   background-color: $backgroundLight;
+  z-index: 10;
   .modal__img {
     width: 273.44px;
     height: 160px;
