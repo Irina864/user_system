@@ -26,7 +26,9 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const usersInfo = useSelector((state) => state.user);
   useEffect(() => {
-    dispatch(toggleServerErrorModal());
+    if (usersInfo.fetchError) {
+      dispatch(toggleServerErrorModal());
+    }
   }, [usersInfo.fetchError]);
   const [users, setUsers] = useState(usersInfo.commonUserList || []);
   const [usersLastNames, setUsersLastNames] = useState([]);
@@ -36,6 +38,7 @@ export default function Home() {
     date: false,
     sex: false,
   });
+  const [abc, setAbc] = useState('А-Я');
 
   const byField = (fieldName) => {
     return (a, b) => (a[fieldName] > b[fieldName] ? 1 : -1);
@@ -148,13 +151,16 @@ export default function Home() {
               }}
             />
             <Filter
+              abc={abc}
               onClickName={() => {
                 if (reverse.last_name) {
                   const data = [...users].sort(byField('last_name')).reverse();
                   setUsers(data);
+                  setAbc('Я-А');
                 } else {
                   const data = [...users].sort(byField('last_name')).sort();
                   setUsers(data);
+                  setAbc('А-Я');
                 }
                 setReverse({
                   last_name: !reverse.last_name,

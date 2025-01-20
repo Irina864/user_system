@@ -58,7 +58,7 @@
       @include flex(column, flex-start, flex-start);
     }
     .users {
-      max-height: calc(100vh - 222px);
+      max-height: calc(100vh - 300px);
       width: 100%;
       @include flex(column, flex-start, flex-start);
       overflow-y: auto;
