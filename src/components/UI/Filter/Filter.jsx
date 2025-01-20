@@ -1,22 +1,17 @@
 'use client';
-import { useState } from 'react';
 import styles from './Filter.module.scss';
 import imgFilter from '@/app/images/filter.svg';
 
-export default function Filter({ onClickName, onClickDate, onClickSex }) {
-  const [reverse, setReverse] = useState(false);
+export default function Filter({ onClickName, onClickDate, onClickSex, abc }) {
   return (
     <div className={styles.filter}>
       <div className={styles.filter__item}>
         <div className={styles.text}>ФИО пользователя</div>
         <div
           className={`${styles.sorter} ${styles.hover_item}`}
-          onClick={() => {
-            setReverse(!reverse);
-            onClickName();
-          }}
+          onClick={() => onClickName()}
         >
-          <div> По алфавиту {reverse ? 'А-Я' : 'Я-А'} </div>
+          <div> По алфавиту {abc}</div>
           <img src={imgFilter.src} alt="filter" />
         </div>
       </div>
