@@ -35,12 +35,6 @@ export default function Home() {
   });
   const [abc, setAbc] = useState('А-Я');
 
-  useEffect(() => {
-    if (usersInfo.fetchError) {
-      dispatch(toggleServerErrorModal());
-    }
-  }, [usersInfo.fetchError]);
-
   const byField = (fieldName) => {
     return (a, b) => (a[fieldName] > b[fieldName] ? 1 : -1);
   };

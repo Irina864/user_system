@@ -17,10 +17,17 @@ export const openModalSlice = createSlice({
     toggleServerErrorModal: (state, action) => {
       state.serverErrorModal = !state.serverErrorModal;
     },
+    openServerErrorModal: (state, action) => {
+      state.serverErrorModal = true;
+    },
   },
 });
 
-export const { toggleDeleteModal, toggleSaveModal, toggleServerErrorModal } =
-  openModalSlice.actions;
+export const {
+  toggleDeleteModal,
+  toggleSaveModal,
+  toggleServerErrorModal,
+  openServerErrorModal,
+} = openModalSlice.actions;
 
 export default openModalSlice.reducer;
