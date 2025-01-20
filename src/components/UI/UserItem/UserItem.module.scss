@@ -42,5 +42,6 @@
     width: 74px;
     @include flex(row, flex-start, center);
     gap: 6px;
+    flex-wrap: wrap;
   }
 }

@@ -21,6 +21,7 @@
     .headerBtn {
       padding: 9px 24px;
       min-height: 44px;
+      max-width: 316px;
       @include flex(row, flex-start, center);
       gap: 10px;
       border-radius: 16px;
@@ -62,6 +63,7 @@
       width: 100%;
       @include flex(column, flex-start, flex-start);
       overflow-y: auto;
+      overflow-x: hidden;
     }
     .loading {
       width: 100%;
