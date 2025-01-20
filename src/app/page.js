@@ -26,7 +26,9 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const usersInfo = useSelector((state) => state.user);
   useEffect(() => {
-    dispatch(toggleServerErrorModal());
+    if (usersInfo.fetchError) {
+      dispatch(toggleServerErrorModal());
+    }
   }, [usersInfo.fetchError]);
   const [users, setUsers] = useState(usersInfo.commonUserList || []);
   const [usersLastNames, setUsersLastNames] = useState([]);
