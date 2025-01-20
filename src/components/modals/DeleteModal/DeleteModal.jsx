@@ -14,6 +14,7 @@ import {
   useLocalStorageRead,
   useLocalStorageRemove,
 } from '@/hooks/useLocalStorage';
+import ServerErrorModal from '../ServerErrorModal/ServerErrorModal';
 
 export default function DeleteModal({}) {
   const userToDelete = useSelector((state) => state.user.userToDelete);
@@ -52,6 +53,8 @@ export default function DeleteModal({}) {
               dispatch(updateUserKey({ key: 'userToDelete', data: {} }));
               if (!fetchError) {
                 dispatch(toddleSaveModal());
+              } else {
+                dispatch(ServerErrorModal());
               }
             }}
           />

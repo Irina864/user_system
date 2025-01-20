@@ -21,15 +21,19 @@ import {
   useLocalStorageRead,
   useLocalStorageRemove,
 } from '@/hooks/useLocalStorage';
-import { toggleSaveModal } from '@/store/openModalSlice';
+import {
+  toggleSaveModal,
+  toggleServerErrorModal,
+} from '@/store/openModalSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Form({ addForm, editForm }) {
   const dispatch = useDispatch();
+  const uuid = uuidv4();
   const store = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
-    id: uuidv4(),
+    id: uuid,
     user_name: '',
     birth_date: '',
     sex: 'FEMALE',
@@ -275,6 +279,8 @@ export default function Form({ addForm, editForm }) {
             }
             if (!store.fetchError) {
               dispatch(toggleSaveModal());
+            } else {
+              dispatch(toggleServerErrorModal());
             }
           }
         }}
