@@ -2,7 +2,7 @@
 @import '@/template';
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   max-width: 1920px;
@@ -19,7 +19,6 @@
   @include flex(column, space-between, center);
   gap: 10px;
   border-radius: 20px;
-  opacity: 0px;
   background-color: $backgroundLight;
   z-index: 10;
   .modal__img {

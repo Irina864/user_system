@@ -25,11 +25,6 @@ export default function Home() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const usersInfo = useSelector((state) => state.user);
-  useEffect(() => {
-    if (usersInfo.fetchError) {
-      dispatch(toggleServerErrorModal());
-    }
-  }, [usersInfo.fetchError]);
   const [users, setUsers] = useState(usersInfo.commonUserList || []);
   const [usersLastNames, setUsersLastNames] = useState([]);
   const [formData, setFormData] = useState({ last_name: '' });
@@ -82,6 +77,8 @@ export default function Home() {
           useLocalStorageAdd('users', users);
           setLoading(false);
         }
+      } else {
+        dispatch(toggleServerErrorModal());
       }
     }
   }, [usersInfo.usersList]);
