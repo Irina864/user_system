@@ -33,7 +33,7 @@ export default function UserItem({ user }) {
         <img
           className={styles.gender__img}
           src={user.sex === 'FEMALE' ? imgWoman.src : imgMan.src}
-          alt="man"
+          alt="sex"
         />
         <span className={styles.label__text}>
           {user.sex === 'FEMALE' ? 'Женский' : 'Мужской'}
